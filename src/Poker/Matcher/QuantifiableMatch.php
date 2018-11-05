@@ -2,7 +2,7 @@
 
 namespace Poker\Matcher;
 
-class QuanitfiableMatch extends Match {
+class QuantifiableMatch extends Match {
     private $value;
 
     public function __construct(int $rank, int $value)

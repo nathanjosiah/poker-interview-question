@@ -3,8 +3,9 @@
 namespace Poker\Matcher\Match;
 
 use Poker\Hand;
+use Poker\Matcher\Match;
 use Poker\Matcher\MatcherInterface;
-use Poker\Matcher\QuanitfiableMatch;
+use Poker\Matcher\QuantifiableMatch;
 use Poker\Matcher\QuantifiableMatcherInterface;
 
 class MatchCollector {
@@ -30,7 +31,7 @@ class MatchCollector {
         foreach ($this->matchers as $i => $matcher) {
             if ($matcher->matches()) {
                 if ($matcher instanceof QuantifiableMatcherInterface) {
-                    $matches[] = new QuanitfiableMatch($matcherCount - $i, $matcher->getMatchValue());
+                    $matches[] = new QuantifiableMatch($matcherCount - $i, $matcher->getMatchValue());
                     continue;
                 }
                 $matches[] = new Match($matcherCount - $i);

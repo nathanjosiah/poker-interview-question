@@ -11,9 +11,9 @@ use Poker\GameFactory;
 
 class GameTest extends TestCase
 {
-    public function testVariousCases() {
+    public function testSmokeTestFor10PlayerGame() {
         $gameFactory = new GameFactory();
         $game = $gameFactory->create();
-        $game->play(4);
+        $game->play(10);
     }
 }

@@ -4,7 +4,7 @@ namespace Poker\Hand;
 
 use Poker\Hand;
 use Poker\Matcher\Match\MatchCollectorFactory;
-use Poker\Matcher\QuanitfiableMatch;
+use Poker\Matcher\QuantifiableMatch;
 
 class HandComparer {
     private $matchCollectorFactory;
@@ -33,7 +33,7 @@ class HandComparer {
             else if ($match1->getRank() < $match2->getRank()) {
                 return 1;
             }
-            else if ($match1 instanceof QuanitfiableMatch && $match2 instanceof QuanitfiableMatch) {
+            else if ($match1 instanceof QuantifiableMatch && $match2 instanceof QuantifiableMatch) {
                 if ($match1->getValue() > $match2->getValue()) {
                     return -1;
                 }
@@ -43,7 +43,7 @@ class HandComparer {
                 return 0;
             }
             // Equal rank of non-quantifiable matches
-            else if (!$match1 instanceof QuanitfiableMatch && !$match2 instanceof QuanitfiableMatch) {
+            else if (!$match1 instanceof QuantifiableMatch && !$match2 instanceof QuantifiableMatch) {
                 // Tie
                 continue;
             }
