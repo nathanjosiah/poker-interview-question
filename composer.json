@@ -1,0 +1,19 @@
+{
+    "name": "nathanjosiah/poker-interview-question",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "authors": [
+        {
+            "name": "Nathan Smith",
+            "email": "nathsmit@adobe.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Poker\\": "src/"
+        }
+    }
+}
