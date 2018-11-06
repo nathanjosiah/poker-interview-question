@@ -4,7 +4,7 @@ namespace Poker\Matcher;
 
 use Poker\Card;
 
-class NPairs extends AbstractHandMatcher {
+class NPairs extends AbstractHandMatcher implements QuantifiableMatcherInterface {
     private $n;
     protected $pairs = [];
     protected $matches = [];
@@ -38,5 +38,10 @@ class NPairs extends AbstractHandMatcher {
     public function matches(): bool
     {
         return count($this->pairs) === $this->n;
+    }
+
+    public function getMatchValue(): int
+    {
+        return max(...array_keys($this->pairs));
     }
 }

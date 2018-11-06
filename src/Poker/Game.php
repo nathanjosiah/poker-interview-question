@@ -4,14 +4,20 @@ namespace Poker;
 
 use Poker\Card\Deck;
 use Poker\Game\RoundEvaluator;
+use Poker\Game\RoundLogger;
 
 class Game {
     private $deck, $roundEvaluator;
+    /**
+     * @var RoundLogger
+     */
+    private $logger;
 
-    public function __construct(Deck $deck, RoundEvaluator $roundEvaluator)
+    public function __construct(Deck $deck, RoundEvaluator $roundEvaluator, RoundLogger $logger)
     {
         $this->deck = $deck;
         $this->roundEvaluator = $roundEvaluator;
+        $this->logger = $logger;
     }
 
     public function play(int $players): void {
@@ -23,20 +29,6 @@ class Game {
         }
 
         $result = $this->roundEvaluator->evaluate($hands);
-
-        $bestHands = $result->getBestHands();
-        if (count($bestHands) > 1) {
-            echo 'Tie between players ' . implode(', ', $bestHands) . \PHP_EOL;
-        }
-        else {
-            echo 'Player ' . ($result->getBestPlayer()) . ' Wins!' . \PHP_EOL;
-        }
-
-        echo '====Hands====' . \PHP_EOL;
-        foreach ($hands as $player => $hand) {
-            echo 'Player ' . $player . 'Hand: ' . \PHP_EOL;
-            echo $hand . \PHP_EOL;
-            echo \PHP_EOL;
-        }
+        $this->logger->log($result, $hands);
     }
 }
