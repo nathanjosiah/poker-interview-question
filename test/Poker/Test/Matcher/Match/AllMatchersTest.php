@@ -48,7 +48,7 @@ class AllMatchersTest extends TestCase
             ['2D 12C 12D 12C 5C', 4, 12, 'Three of a kind'],
             ['6D 3C 4D 5D 2D', 5, 6, 'Straight'],
             ['2D 3C 4D 5D 14D', 5, 14, 'Straight - ace as 1'],
-            ['10D 11C 12D 13D 14D', 5, 14, 'Straight - ace as 1'],
+            ['10D 11C 12D 13D 14D', 5, 14, 'Straight - ace as 14'],
             ['1D 2D 5D 13D 14D', 6, null, 'Flush'],
             ['2D 6D 12D 13D 14D', 6, null, 'Flush'],
             ['2D 2D 2D 13D 13C', 7, 13, 'Full House'],
