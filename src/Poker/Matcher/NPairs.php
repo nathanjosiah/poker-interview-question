@@ -42,6 +42,7 @@ class NPairs extends AbstractHandMatcher implements QuantifiableMatcherInterface
 
     public function getMatchValue(): int
     {
-        return max(...array_keys($this->pairs));
+        $keys = array_keys($this->pairs);
+        return count($this->pairs) > 1 ? max($keys) : $keys[0];
     }
 }

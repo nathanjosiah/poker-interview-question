@@ -11,9 +11,6 @@ class Hand {
     public function __construct(array $cards)
     {
         $this->cards = $cards;
-        usort($cards, function (Card $cardA, Card $cardB) {
-            return $cardA->getValue() <=> $cardB->getValue();
-        });
     }
 
     public function getCards() {

@@ -5,9 +5,9 @@ namespace Poker\Matcher;
 use Poker\Card;
 
 class Straight extends AbstractHandMatcher implements QuantifiableMatcherInterface {
-    private $lastValue = null;
+    private $needToSee = [];
+    private $alreadySeen = [];
     private $hasFailed = false;
-    private $sum = 0;
     private $highestCard = 0;
 
     public function observe(Card $card): void
@@ -15,27 +15,35 @@ class Straight extends AbstractHandMatcher implements QuantifiableMatcherInterfa
         if ($this->hasFailed) {
             return;
         }
-
         $value = $card->getValue();
-        $this->highestCard = max($this->highestCard, $value);
-        $this->sum += $value;
-        if (!isset($this->lastValue)) {
-            $this->lastValue = $value;
-            return;
-        }
 
-        // handle ace as a "1": 2,3,4,5,14.
-        if ($this->lastValue === 14 && $value !== 5 || $value - $this->lastValue !== 1) {
+        if (isset($this->alreadySeen[$value])) {
             $this->hasFailed = true;
             return;
         }
+        if (isset($this->needToSee[$value])) {
+            unset($this->needToSee[$value]);
+        }
 
-        $this->lastValue = $value;
+        // Handle ace as 1
+        $previousValue = ($value === 2 ? 14 : $value - 1);
+        if (!isset($this->alreadySeen[$previousValue])) {
+            $this->needToSee[$previousValue] = true;
+        }
+
+        // Handle ace as 1
+        $nextValue = ($value === 14 ? 2 : $value + 1);
+        if (!isset($this->alreadySeen[$nextValue])) {
+            $this->needToSee[$nextValue] = true;
+        }
+
+        $this->highestCard = max($this->highestCard, $value);
+        $this->alreadySeen[$value] = true;
     }
 
     public function matches(): bool
     {
-        return !$this->hasFailed;
+        return !$this->hasFailed && count($this->needToSee) === 2;
     }
 
     public function getMatchValue(): int
